@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Anime Details</title>
+    <style>
+      body {
+        display: flex;
+        height: 200vh;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        
+      }
+
+      img {
+        margin-top: 0px;
+        height: 40%; /* Adjust the height as needed */
+        max-width: 100%;
+        padding: 10px;
+        background-color: #f0f0f0;
+        display: inline-block;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      img:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(255, 0, 0, 0.3);
+      }
+
+      p {
+        text-align: center;
+        padding: 20px;
+        font-size: large;
+      }
+
+      iframe {
+        width: 50%; /* Adjust the width as needed */
+        height: 600px; /* Set height to your desired value */
+      }
+
+      
+      * {
+        font-family: "Nunito", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        outline: none;
+        border: none;
+        text-transform: capitalize;
+        transition: all 0.2s linear;
+      }
+
+      html {
+        font-size: 62.5%;
+        scroll-padding-top: 5.5rem;
+      }
+
+      .home {
+        padding: 0;
+      }
+      .home .box {
+        min-height: 100vh;
+        display: -webkit-box;
+        display: -ms-flexbox;
+
+        display: flex;
+        align-items: center;
+        background-size: cover !important;
+        background-position: center !important;
+        justify-content: flex-end;
+        padding: 2rem 9%;
+      }
+
+      .home .box {
+        justify-content: flex-start;
+      }
+      .home .box.second {
+        justify-content: flex-end;
+      }
+      .home .box .content {
+        width: 50rem;
+      }
+      .home .box .content h3 {
+        font-size: 6rem;
+        color: #fff;
+        padding-top: 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .home .box .content p {
+        line-height: 2;
+        color: #fff;
+        font-size: 1.5rem;
+        padding: 1rem 0;
+      }
+    </style>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  </head>
+  <body>
+    <header>
+      <div class="search-container">
+        <div class="input"><input type="text" id="search-input" placeholder="Search..." /></div>
+        <div class="button" onclick="searchAnime()">Search</div>
+      </div>
+     
+      <h1 style="color: #e74c3c;">Anime Cannon</h1>
+
+      <nav class="navbar">
+          <a href="index.html">Home</a>
+          <a href="animelist.html">Anime List</a>
+          <a href="genre.html">Genre</a>
+          <a href="about.html">About</a>
+      </nav>
+      <div class="icons">
+        <i class="fas fa-bars" id="menu-bars"></i>
+        <a href="#" class="fas fa-heart"></a>
+      </div>
+    </header>
+    
+    <div class="content">
+      <ul id="anime-list"></ul>
+    </div>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+
+      const animeId = urlParams.get("animeId");
+      console.log(animeId);
+
+      fetch(`http://localhost:3000/anime-details/${animeId}`)
+        .then((response) => response.json())
+        .then((animeDetails) => {
+          const animeImage = document.createElement("img");
+          animeImage.src = animeDetails.animeImg;
+          animeImage.style.height = "40%";
+          document.body.appendChild(animeImage);
+          const head = document.createElement("h1");
+          head.textContent = animeDetails.animeTitle;
+          document.body.appendChild(head);
+          const genres = document.createElement("b");
+          genres.textContent = animeDetails.genres;
+          const para = document.createElement("p");
+          para.appendChild(genres);
+          document.body.appendChild(para);
+
+          const hea = document.createElement("h2");
+          hea.textContent = "synopsis";
+          document.body.appendChild(hea);
+          const seperation = document.createElement("div");
+          seperation.className = "seperation";
+          document.body.appendChild(seperation);
+          const synopsisParagraph = document.createElement("p");
+          synopsisParagraph.className = "syn";
+          const cleanedSynopsis = animeDetails.synopsis.replace(
+            /[^a-zA-Z0-9\s]/g,
+            ""
+          );
+          synopsisParagraph.textContent = cleanedSynopsis;
+          document.body.appendChild(synopsisParagraph);
+
+          const iframe = document.createElement("iframe");
+          iframe.src = animeDetails.episodesList[0].episodeUrl;
+          iframe.width = "50%";
+          iframe.height = "600px";
+          document.body.appendChild(iframe);
+        })
+        .catch((error) => {
+          console.error("Error fetching anime details:", error);
+        });
+
+      let menu = document.querySelector("#menu-bars");
+      let navbar = document.querySelector(".navbar");
+      menu.onclick = () => {
+        menu.classList.toggle("fa-time");
+        navbar.classList.toggle("active");
+      };
+      document.addEventListener("DOMContentLoaded", function () {
+  fetch("https://gogoanime.consumet.stream/genre/action")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(animelist => {
+      const animeListContainer = document.getElementById("anime-list");
+
+      animelist.forEach(anime => {
+        const listItem = document.createElement("li");
+        listItem.textContent = anime.title; // Replace with the correct property
+        animeListContainer.appendChild(listItem);
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching anime list:", error);
+    });
+});
+
+
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700&display=swap');
+:root{
+--red:#E50914;
+--black:#000000;
+--light-color:#181818;
+--box-shadow:0 .5rem 1.5rem rgba(0,0,0,.1);
+
+
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+      .search-results {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+.anime-card {
+        width: 300px;
+        color: #e74c3c;
+        margin: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: white;
+        align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center;
+      }
+
+      .anime-img {
+  width: 250px;
+  height: 200px; /* Set a fixed height for the images */
+  border-radius: 4px;
+  cursor: crosshair;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+      .anime-title {
+        font-weight: bold;
+        margin-top: 5px;
+        text-align: center;
+      }
+
+      .anime-status {
+        margin-top: 5px;
+      }
+
+.search-results {
+  margin-top: 20px;
+  max-height: calc(100vh - 160px); /* Adjust this value as needed */
+  overflow-y: auto;
+  margin-top: 20px;
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  gap: 20px; /* Gap between grid items */
+}
+  input{
+    width: 200px;
+    height: 35px;
+  }
+  
+  
+.button {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e74c3c;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .button:hover {
+    background-color: #e74c3c;
+  }
+  
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--black);
+    padding: 1rem 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 10000;
+    box-shadow: var(--box-shadow);
+    border-bottom: 5px solid #e74c3c;
+  }
+  
+  
+
+
+header .logo{
+    color: #fff;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+header .logo i{
+    color: var(--red)
+}
+
+
+header .navbar a.active,
+header .navbar a:hover{
+    color: #fff;
+    background:var(--red);
+}
+header .navbar a {
+    font-size: 1.2rem; /* Adjust the font size */
+    padding: 0.3rem 0.8rem; /* Adjust the padding */
+    border-radius: 0.3rem;
+    color: #fff;
+}
+header .icons button,
+header .icons i,
+header .icons a {
+    cursor: pointer;
+    margin-left: 0.3rem; /* Adjust the margin */
+    height: 2.5rem; /* Adjust the icon size */
+    line-height: 2.5rem;
+    width: 2.5rem; /* Adjust the icon size */
+    text-align: center;
+    font-size: 1.2rem; /* Adjust the font size */
+    color: #fff;
+    border-radius: 50%;
+    background: var(--red);
+}
+
+
+header .icons button:hover
+header.icons i:hover
+header .icons a:hover{
+    color: #fff;
+    background: var(--red);
+    transform: rotate(360deg);
+}
+header.icons #menu-bars{
+    display: none;
+
+}
+.dark-mode {
+    background-color: #000;
+    color: #fff;
+    /* Add more dark mode styles as needed */
+  }
+
+  footer {
+    background-color: #181818;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-top: 2px solid #e74c3c;
+    border-bottom: 4px solid #e74c3c;
+  }
+
+
+@media (max-width: 991px) {
+    html{
+        font-size: 62.5%;
+  /* overflow: hidden; */ /* Remove or modify this line */
+  scroll-padding-top: 5.5rem;
+    }
+    header{
+        padding: 1rem 2rem;
+    }
+
+}
+
+@media(max-width: 768px){
+    header.icons #menu-bars{
+        display: inline-block;
+    
+    }
+    header .navbar{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--black);
+        border-top: 1rem solid black;
+        padding: 1rem;
+        clip-path: polygon(0 0,100% 0, 100% 0 ,  0 0);
+    }
+    header .navbar.active{
+clip-path: polygon(0 0,100% 0, 100% 100% , 0% 100%);
+
+    }
+    header .navbar a{
+        display: block;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 2rem;
+        background: var(--red);
+    }
+
+
+}
+
+
+@media(max-width: 468px){
+
+html{
+    font-size: 62.5%;
+    scroll-padding-top: 5.5rem;
+
+}
+
+
+.dark-mode {
+    background-color: black;
+    color: white;
+  }
+
+  .dark-mode nav ul li a {
+    color: white;
+  }
+
+  .dark-mode .form-label {
+    color: white;
+  }
+
+  /* Add glow effect to form-control on focus */
+  .dark-mode .form-control:focus {
+    border-color: #e74c3c;
+    box-shadow: 0 0 10px rgba(231, 76, 60, 0.7);
+  }
+
+  /* Add hover effect to submit-btn */
+  .dark-mode .submit-btn:hover {
+    background-color: #c0392b;
+    box-shadow: 0 0 10px rgba(192, 57, 43, 0.7);
+  }
+
+  .dark-mode .welcome-text {
+    color: white;
+  }
+}
+
+  #toggle-mode {
+display: inline-block;
+background-color: var(--red); /* Use your desired background color */
+color: white; /* Text color */
+border: none;
+border-radius: 50%; /* Make it round */
+width: 30px; /* Adjust the size as needed */
+height: 30px; /* Adjust the size as needed */
+font-size: 1rem; /* Adjust the font size */
+cursor: pointer;
+transition: background-color 0.3s ease;
+}
+
+#toggle-mode:hover {
+background-color: var(--light-color); /* Change color on hover */
+}

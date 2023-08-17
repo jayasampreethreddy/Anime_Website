@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css">
+    <title>Anime Cannon - Home</title>
+    <style>
+      /* Common Styles */
+      body {
+        background: white;
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        color: black;
+      }
+
+  
+*{
+    font-family: 'Nunito',sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline:none;
+    border: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+      .search-results {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+.anime-card {
+        width: 300px;
+        margin: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: white;
+        align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center;
+      }
+
+      .anime-img {
+  width: 250px;
+  height: 200px; /* Set a fixed height for the images */
+  border-radius: 4px;
+  cursor: crosshair;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+      .anime-title {
+        font-weight: bold;
+        margin-top: 5px;
+        text-align: center;
+      }
+
+      .anime-status {
+        margin-top: 5px;
+      }
+
+.search-results {
+  margin-top: 20px;
+  max-height: calc(100vh - 160px); /* Adjust this value as needed */
+  overflow-y: auto;
+  margin-top: 20px;
+  display: grid; /* Use grid layout */
+  grid-template-columns: repeat(5, 1fr); /* 5 columns */
+  gap: 20px; /* Gap between grid items */
+}
+      .content {
+        margin-top: 70px;
+        padding: 20px;
+        
+         /* Change here */
+      }
+
+      /* Home Page Specific Styles */
+      .welcome-text {
+        text-align: center;
+        margin-top: 40px; /* Adjust the margin as needed */
+        margin-bottom: 20px; /* Adjust the margin as needed */
+        color: #e74c3c;
+        font-size: large;
+      }
+
+      /* Modify the grid layout and add padding */
+      .image-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* Change here */
+        gap: 20px; /* Increase the gap for more spacing */
+        margin-top: 60px; /* Adjust the margin as needed */
+        margin-bottom: 60px; /* Adjust the margin as needed */
+        padding: 0 20px; /* Add padding here */
+      }
+
+      .image-grid img {
+        width: 90%;
+        height: 80%; /* Set height to 100% */
+        object-fit: cover; /* Maintain aspect ratio */
+        border-radius: 10px;
+        cursor: pointer;
+        /* transition: transform 0.2s ease-in-out; */ /* Remove this line */
+      }
+
+      .image-grid img:hover {
+        /* transform: scale(1.05); */ /* Remove this line */
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.9); /* Brighter red glow effect */
+      }
+
+     
+      
+    </style>
+        <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      />
+  </head>
+  <body>
+    <header>
+      <div class="search-container">
+        <div class="input"><input type="text" id="search-input" placeholder="Search..." /></div>
+        <div class="button" onclick="searchAnime()">Search</div>
+      </div>
+     
+      <h1 style="color: #e74c3c;">Anime Cannon</h1>
+
+      <nav class="navbar">
+          <a href="index.html">Home</a>
+          <a href="animelist.html">Anime List</a>
+          <a href="genre.html">Genre</a>
+          <a href="about.html">About</a>
+      </nav>
+      <div class="icons">
+        <button id="toggle-mode-button" class="toggle-mode-button" ><i class="fas fa-moon"></i></button>
+        <i class="fas fa-bars" id="menu-bars"></i>
+        
+      </div>
+    </header>
+    
+
+    <section class="content">
+
+      <div class="search-results" id="search-results">
+        <!-- Search results will be displayed here -->
+      </div>
+      <h2 class="genre-header">Welcome to Anime Cannon!</h2>
+      <p class="welcome-text">Explore a world of exciting anime adventures and stories.</p>
+      <div class="image-grid" id="anime-image-grid">
+      </div>
+    </section>
+
+
+<script>
+  fetch("http://localhost:3000/popular") 
+    .then((response) => response.json())
+    .then((animelist) => {
+      const animeGridContainer = document.getElementById("anime-image-grid");
+
+      animelist.forEach((anime) => {
+        const animeItem = document.createElement("div");
+        animeItem.classList.add("anime-item");
+
+        const animeImg = document.createElement("img");
+        animeImg.classList.add("anime-img");
+        animeImg.src = anime.animeImg;
+
+        const animeTitle = document.createElement("p");
+        animeTitle.classList.add("anime-title");
+        animeTitle.textContent = anime.animeTitle;
+        animeItem.addEventListener("click", () => {
+  const clickedAnimeId = anime.animeId; 
+  window.location.href = `def.html?animeId=${clickedAnimeId}`;
+});
+
+
+        animeItem.appendChild(animeImg);
+        animeItem.appendChild(animeTitle);
+
+        animeGridContainer.appendChild(animeItem);
+      });
+
+      
+    });
+</script>
+</body>
+</html>
+
+    <footer>&copy; 2023 Anime Cannon. All rights reserved.</footer>
+    <script src="./script.js"></script>
+  </body>
+</html>
